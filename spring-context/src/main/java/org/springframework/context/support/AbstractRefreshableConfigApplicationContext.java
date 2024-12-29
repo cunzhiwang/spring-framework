@@ -78,6 +78,9 @@ public abstract class AbstractRefreshableConfigApplicationContext extends Abstra
 			Assert.noNullElements(locations, "Config locations must not be null");
 			this.configLocations = new String[locations.length];
 			for (int i = 0; i < locations.length; i++) {
+				//此方法的目的在于将占位符(placeholder)解析成实际的地址。
+				// 比如可以这么写: new ClassPathXmlApplicationContext("classpath:config.xml");
+				// 那么classpath:就是需要被解析的。
 				this.configLocations[i] = resolvePath(locations[i]).trim();
 			}
 		}

@@ -253,6 +253,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * Create a new AbstractApplicationContext with no parent.
 	 */
 	public AbstractApplicationContext() {
+		// 获取文件配置逻辑解析工具，PathMatchingResourcePatternResolver支持Ant风格的路径解析。
+		//ANT 表达式的语法非常直观，允许使用通配符来匹配文件名、目录名或路径中的某些部分。
+		// 它类似于 Unix Shell 的路径匹配规则，但有一些特定的扩展和差异。
 		this.resourcePatternResolver = getResourcePatternResolver();
 	}
 
@@ -512,6 +515,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	@Override
 	public void setParent(@Nullable ApplicationContext parent) {
 		this.parent = parent;
+		//ClassPathXmlApplicationContext获取上下文parent一般是空
 		if (parent != null) {
 			Environment parentEnvironment = parent.getEnvironment();
 			if (parentEnvironment instanceof ConfigurableEnvironment) {
