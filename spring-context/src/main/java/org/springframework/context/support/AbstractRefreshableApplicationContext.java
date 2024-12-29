@@ -119,6 +119,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	@Override
 	protected final void refreshBeanFactory() throws BeansException {
+		// 如果已经存在bean factory，销毁之前的
 		if (hasBeanFactory()) {
 			destroyBeans();
 			closeBeanFactory();
@@ -198,7 +199,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 		return new DefaultListableBeanFactory(getInternalParentBeanFactory());
 	}
 
-	/**
+	/** 提供子类自定义配置，如果未配置则默认如下
 	 * Customize the internal bean factory used by this context.
 	 * Called for each {@link #refresh()} attempt.
 	 * <p>The default implementation applies this context's
@@ -214,9 +215,11 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 	 */
 	protected void customizeBeanFactory(DefaultListableBeanFactory beanFactory) {
 		if (this.allowBeanDefinitionOverriding != null) {
+			//默认false，不允许覆盖
 			beanFactory.setAllowBeanDefinitionOverriding(this.allowBeanDefinitionOverriding);
 		}
 		if (this.allowCircularReferences != null) {
+			//默认false，不允许循环引用
 			beanFactory.setAllowCircularReferences(this.allowCircularReferences);
 		}
 	}
