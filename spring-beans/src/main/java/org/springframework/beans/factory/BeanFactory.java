@@ -22,7 +22,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * The root interface for accessing a Spring bean container.
- *
+ * spring bean工厂根接口
  * <p>This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and
  * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
