@@ -89,7 +89,7 @@ import org.springframework.util.StringUtils;
  * Spring's default implementation of the {@link ConfigurableListableBeanFactory}
  * and {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory
  * based on bean definition metadata, extensible through post-processors.
- *
+ * DefaultListableBeanFactory是整个bean加载的核心部分，是Spring注册及加载bean的默认实现
  * <p>Typical usage is registering all bean definitions first (possibly read
  * from a bean definition file), before accessing beans. Bean lookup by name
  * is therefore an inexpensive operation in a local bean definition table,

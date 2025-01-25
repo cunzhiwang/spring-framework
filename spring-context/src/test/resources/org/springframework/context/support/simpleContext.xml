@@ -5,6 +5,12 @@
 
 	<bean id="someMessageSource" name="yourMessageSource"
 			class="org.springframework.context.support.StaticMessageSource"/>
+	<bean id="testData" class="org.springframework.context.support.TestData">
+		<property name="staticMessageSource" ref="yourMessageSource"></property>
+		<property name="testInterFace" ref="testImpl"></property>
+	</bean>
+	<bean id="testImpl" class="org.springframework.context.support.TestDataImpl">
+	</bean>
 
 	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
 		<constructor-arg value="someNonExistentFile.xml"/>
