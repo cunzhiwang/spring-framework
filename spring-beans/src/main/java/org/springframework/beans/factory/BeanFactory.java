@@ -124,6 +124,7 @@ public interface BeanFactory {
 	 * beans <i>created</i> by the FactoryBean. For example, if the bean named
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
+	 * 改标识用于区分普通bean和FactoryBean，例如普通bean的名称是myProject，FactoryBean则是&myJndiObject
 	 */
 	String FACTORY_BEAN_PREFIX = "&";
 
