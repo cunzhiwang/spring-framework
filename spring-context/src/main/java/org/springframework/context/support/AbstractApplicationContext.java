@@ -254,6 +254,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	public AbstractApplicationContext() {
 		// 获取文件配置逻辑解析工具，PathMatchingResourcePatternResolver支持Ant风格的路径解析。
+		// 资源配置解析器
 		//ANT 表达式的语法非常直观，允许使用通配符来匹配文件名、目录名或路径中的某些部分。
 		// 它类似于 Unix Shell 的路径匹配规则，但有一些特定的扩展和差异。
 		this.resourcePatternResolver = getResourcePatternResolver();
