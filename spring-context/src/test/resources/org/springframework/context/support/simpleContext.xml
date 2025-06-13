@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
-
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
 	<bean id="someMessageSource" name="yourMessageSource"
 			class="org.springframework.context.support.StaticMessageSource"/>
 	<bean id="testData" class="org.springframework.context.support.TestData">
-		<property name="staticMessageSource" ref="yourMessageSource"></property>
-		<property name="testInterFace" ref="testImpl"></property>
+		<property name="staticMessageSource" ref="yourMessageSource"/>
+		<property name="testInterFace" ref="testImpl"/>
 	</bean>
 	<bean id="testImpl" class="org.springframework.context.support.TestDataImpl">
 	</bean>
 
-	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
+	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext"
+			lazy-init="true">
 		<constructor-arg value="someNonExistentFile.xml"/>
 	</bean>
 
