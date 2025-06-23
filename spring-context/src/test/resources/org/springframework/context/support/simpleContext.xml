@@ -12,7 +12,7 @@
 	<bean id="testImpl" class="org.springframework.context.support.TestDataImpl">
 	</bean>
 
-	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext"
+	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext" parent=""
 			lazy-init="true">
 		<constructor-arg value="someNonExistentFile.xml"/>
 	</bean>
