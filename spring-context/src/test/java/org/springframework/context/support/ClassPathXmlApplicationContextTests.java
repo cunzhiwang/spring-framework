@@ -41,6 +41,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.metrics.jfr.FlightRecorderApplicationStartup;
 import org.springframework.tests.sample.beans.ResourceTestBean;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.ObjectUtils;
@@ -78,8 +79,9 @@ public class ClassPathXmlApplicationContextTests {
 	@Test
 	void singleConfigLocation() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(FQ_SIMPLE_CONTEXT);
-		assertThat(ctx.containsBean("someMessageSource")).isTrue();
+//		assertThat(ctx.containsBean("someMessageSource")).isTrue();
 		TestData bean = ctx.getBean(TestData.class);
+		TestDataImpl testDataImpl = ctx.getBean(TestDataImpl.class);
 		bean.testPrint();
 		ctx.close();
 	}

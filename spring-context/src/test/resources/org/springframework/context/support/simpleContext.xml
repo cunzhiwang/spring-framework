@@ -10,10 +10,10 @@
 		<property name="testInterFace" ref="testImpl"/>
 	</bean>
 	<bean id="testImpl" class="org.springframework.context.support.TestDataImpl">
+		<property name="testData" ref="testData"/>
 	</bean>
 
-	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext"
-			lazy-init="true">
+	<bean class="org.springframework.context.support.ClassPathXmlApplicationContext" lazy-init="true">
 		<constructor-arg value="someNonExistentFile.xml"/>
 	</bean>
 

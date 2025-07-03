@@ -12,6 +12,15 @@ import org.springframework.beans.testfixture.beans.TestBean;
  */
 public class TestDataImpl implements ObjectFactory<TestBean> {
 
+	public TestData getTestData() {
+		return testData;
+	}
+
+	public void setTestData(TestData testData) {
+		this.testData = testData;
+	}
+
+	private TestData testData;
 
 	@Override
 	public TestBean getObject() throws BeansException {
