@@ -19,6 +19,10 @@ package org.springframework.beans;
 import java.beans.PropertyDescriptor;
 
 /**
+ * 是 Spring 框架中的一个接口，它用于访问 Java Beans 的属性。
+ * 这个类的主要作用是提供一种统一的方式来操作 Java Bean 的属性，无论是读取还是写入。
+ * 通过 BeanWrapper，开发者可以方便地获取或设置属性的值，并且它还支持类型转换、属性验证等功能。
+ * 它在 Spring 表单处理、数据绑定等场景中非常有用
  * The central interface of Spring's low-level JavaBeans infrastructure.
  *
  * <p>Typically not used directly but rather implicitly via a
