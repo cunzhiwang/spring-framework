@@ -1689,6 +1689,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (converter == null) {
 			converter = bw;
 		}
+		//核心解析器，负责处理属性值中的动态内容（如引用其他 Bean 的@Autowired、SpEL 表达式#{...}、占位符${...}等）
 		BeanDefinitionValueResolver valueResolver = new BeanDefinitionValueResolver(this, beanName, mbd, converter);
 
 		// Create a deep copy, resolving any references for values.

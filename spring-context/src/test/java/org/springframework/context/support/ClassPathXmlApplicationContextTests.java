@@ -79,10 +79,10 @@ public class ClassPathXmlApplicationContextTests {
 	@Test
 	void singleConfigLocation() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext(FQ_SIMPLE_CONTEXT);
-//		assertThat(ctx.containsBean("someMessageSource")).isTrue();
 		ctx.setAllowCircularReferences(false);
 		TestData bean = ctx.getBean(TestData.class);
 		TestDataImpl testDataImpl = ctx.getBean(TestDataImpl.class);
+		assertThat(testDataImpl).isNotNull();
 		bean.testPrint();
 		ctx.close();
 	}
