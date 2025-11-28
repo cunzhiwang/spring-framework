@@ -17,45 +17,38 @@
 package org.springframework.context;
 
 /**
- * An extension of the {@link Lifecycle} interface for those objects that require
- * to be started upon {@code ApplicationContext} refresh and/or shutdown in a
- * particular order.
+ * {@link Lifecycle} 接口的扩展，适用于那些需要在 {@code ApplicationContext}
+ * 刷新和/或关闭时按特定顺序启动和停止的对象。
  *
- * <p>The {@link #isAutoStartup()} return value indicates whether this object should
- * be started at the time of a context refresh. The callback-accepting
- * {@link #stop(Runnable)} method is useful for objects that have an asynchronous
- * shutdown process. Any implementation of this interface <i>must</i> invoke the
- * callback's {@code run()} method upon shutdown completion to avoid unnecessary
- * delays in the overall {@code ApplicationContext} shutdown.
+ * <p>{@link #isAutoStartup()} 的返回值表明该对象是否应在上下文刷新时自动启动。
+ * 接受回调参数的 {@link #stop(Runnable)} 方法对于具有异步关闭过程的对象
+ * 非常有用。任何该接口的实现类在完成关闭时<i>必须</i>调用回调的
+ * {@code run()} 方法，以避免整个 {@code ApplicationContext} 关闭过程中
+ * 出现不必要的延迟。
  *
- * <p>This interface extends {@link Phased}, and the {@link #getPhase()} method's
- * return value indicates the phase within which this {@code Lifecycle} component
- * should be started and stopped. The startup process begins with the <i>lowest</i>
- * phase value and ends with the <i>highest</i> phase value ({@code Integer.MIN_VALUE}
- * is the lowest possible, and {@code Integer.MAX_VALUE} is the highest possible).
- * The shutdown process will apply the reverse order. Any components with the
- * same value will be arbitrarily ordered within the same phase.
+ * <p>本接口扩展了 {@link Phased}，其 {@link #getPhase()} 方法的返回值用于
+ * 指示该 {@code Lifecycle} 组件应在生命周期的哪个阶段启动和停止。
+ * 启动过程从<i>最小</i>的阶段值开始，到<i>最大</i>的阶段值结束
+ * （{@code Integer.MIN_VALUE} 为最小可能值，{@code Integer.MAX_VALUE}
+ * 为最大可能值）。关闭过程则按相反顺序执行。在同一阶段值内的各组件
+ * 会以任意顺序执行。
  *
- * <p>Example: if component B depends on component A having already started,
- * then component A should have a lower phase value than component B. During
- * the shutdown process, component B would be stopped before component A.
+ * <p>例如：如果组件 B 依赖于组件 A 已经启动，那么组件 A 的阶段值应当小于
+ * 组件 B。在关闭过程中，组件 B 会先于组件 A 被停止。
  *
- * <p>Any explicit "depends-on" relationship will take precedence over the phase
- * order such that the dependent bean always starts after its dependency and
- * always stops before its dependency.
+ * <p>任何显式的 "depends-on" 依赖关系都会优先于阶段顺序：
+ * 依赖方 bean 总是会在其依赖之后启动，并且总是在其依赖之前停止。
  *
- * <p>Any {@code Lifecycle} components within the context that do not also
- * implement {@code SmartLifecycle} will be treated as if they have a phase
- * value of {@code 0}. This allows a {@code SmartLifecycle} component to start
- * before those {@code Lifecycle} components if the {@code SmartLifecycle}
- * component has a negative phase value, or the {@code SmartLifecycle} component
- * may start after those {@code Lifecycle} components if the {@code SmartLifecycle}
- * component has a positive phase value.
+ * <p>在上下文中，任何实现了 {@code Lifecycle} 却没有同时实现
+ * {@code SmartLifecycle} 的组件都将被视为其阶段值为 {@code 0}。
+ * 因此，如果某个 {@code SmartLifecycle} 组件的阶段值为负数，
+ * 它会先于这些 {@code Lifecycle} 组件启动；如果阶段值为正数，
+ * 它则会在这些 {@code Lifecycle} 组件之后启动。
  *
- * <p>Note that, due to the auto-startup support in {@code SmartLifecycle}, a
- * {@code SmartLifecycle} bean instance will usually get initialized on startup
- * of the application context in any case. As a consequence, the bean definition
- * lazy-init flag has very limited actual effect on {@code SmartLifecycle} beans.
+ * <p>请注意，由于 {@code SmartLifecycle} 提供了自动启动支持，
+ * {@code SmartLifecycle} bean 实例通常会在应用上下文启动时就被初始化。
+ * 因此，对于 {@code SmartLifecycle} bean 来说，bean 定义上的 lazy-init
+ * 标志在实际效果上非常有限。
  *
  * @author Mark Fisher
  * @author Juergen Hoeller
@@ -67,11 +60,10 @@ package org.springframework.context;
 public interface SmartLifecycle extends Lifecycle, Phased {
 
 	/**
-	 * The default phase for {@code SmartLifecycle}: {@code Integer.MAX_VALUE}.
-	 * <p>This is different from the common phase {@code 0} associated with regular
-	 * {@link Lifecycle} implementations, putting the typically auto-started
-	 * {@code SmartLifecycle} beans into a later startup phase and an earlier
-	 * shutdown phase.
+	 * {@code SmartLifecycle} 的默认阶段值：{@code Integer.MAX_VALUE}。
+	 * <p>这不同于常规 {@link Lifecycle} 实现通常使用的阶段值 {@code 0}，
+	 * 它会让通常自动启动的 {@code SmartLifecycle} bean 在更靠后的启动阶段，
+	 * 以及更靠前的关闭阶段执行。
 	 * @since 5.1
 	 * @see #getPhase()
 	 * @see org.springframework.context.support.DefaultLifecycleProcessor#getPhase(Lifecycle)
@@ -80,13 +72,11 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 
 
 	/**
-	 * Returns {@code true} if this {@code Lifecycle} component should get
-	 * started automatically by the container at the time that the containing
-	 * {@link ApplicationContext} gets refreshed.
-	 * <p>A value of {@code false} indicates that the component is intended to
-	 * be started through an explicit {@link #start()} call instead, analogous
-	 * to a plain {@link Lifecycle} implementation.
-	 * <p>The default implementation returns {@code true}.
+	 * 如果该 {@code Lifecycle} 组件应在其所属的 {@link ApplicationContext}
+	 * 刷新时由容器自动启动，则返回 {@code true}。
+	 * <p>返回值为 {@code false} 表明该组件预期通过显式调用 {@link #start()}
+	 * 来启动，与普通的 {@link Lifecycle} 实现类似。
+	 * <p>默认实现返回 {@code true}。
 	 * @see #start()
 	 * @see #getPhase()
 	 * @see LifecycleProcessor#onRefresh()
@@ -97,19 +87,16 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 	}
 
 	/**
-	 * Indicates that a Lifecycle component must stop if it is currently running.
-	 * <p>The provided callback is used by the {@link LifecycleProcessor} to support
-	 * an ordered, and potentially concurrent, shutdown of all components having a
-	 * common shutdown order value. The callback <b>must</b> be executed after
-	 * the {@code SmartLifecycle} component does indeed stop.
-	 * <p>The {@link LifecycleProcessor} will call <i>only</i> this variant of the
-	 * {@code stop} method; i.e. {@link Lifecycle#stop()} will not be called for
-	 * {@code SmartLifecycle} implementations unless explicitly delegated to within
-	 * the implementation of this method.
-	 * <p>The default implementation delegates to {@link #stop()} and immediately
-	 * triggers the given callback in the calling thread. Note that there is no
-	 * synchronization between the two, so custom implementations may at least
-	 * want to put the same steps within their common lifecycle monitor (if any).
+	 * 指示如果当前正在运行，则该 {@code Lifecycle} 组件必须停止。
+	 * <p>给定的回调用于让 {@link LifecycleProcessor} 支持按照给定的关闭顺序值
+	 * 有序地、并且在需要时并发地关闭所有组件。只有在 {@code SmartLifecycle}
+	 * 组件确实已经停止之后，<b>必须</b>执行该回调。
+	 * <p>{@link LifecycleProcessor} 只会调用这一变体的 {@code stop} 方法；
+	 * 换言之，对于 {@code SmartLifecycle} 的实现而言，除非在本方法实现中
+	 * 显式地委托调用，否则不会调用 {@link Lifecycle#stop()}。
+	 * <p>默认实现会委托调用 {@link #stop()}，并在调用线程中立即触发给定的
+	 * 回调。需要注意的是，两者之间没有任何同步，因此自定义实现至少应该
+	 * 将相同的步骤放在它们共同使用的生命周期监视器（如果有的话）里。
 	 * @see #stop()
 	 * @see #getPhase()
 	 */
@@ -119,10 +106,9 @@ public interface SmartLifecycle extends Lifecycle, Phased {
 	}
 
 	/**
-	 * Return the phase that this lifecycle object is supposed to run in.
-	 * <p>The default implementation returns {@link #DEFAULT_PHASE} in order to
-	 * let {@code stop()} callbacks execute before regular {@code Lifecycle}
-	 * implementations.
+	 * 返回该生命周期对象应运行所在的阶段值。
+	 * <p>默认实现返回 {@link #DEFAULT_PHASE}，以便让 {@code stop()} 回调
+	 * 在普通 {@code Lifecycle} 实现之前执行。
 	 * @see #isAutoStartup()
 	 * @see #start()
 	 * @see #stop(Runnable)
