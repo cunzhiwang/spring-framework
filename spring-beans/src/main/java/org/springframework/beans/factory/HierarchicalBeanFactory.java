@@ -19,13 +19,12 @@ package org.springframework.beans.factory;
 import org.springframework.lang.Nullable;
 
 /**
- * Sub-interface implemented by bean factories that can be part
- * of a hierarchy.
- * HierarchicalBeanFactory 提供父容器的访问功能.至于父容器的设置,
- * 需要找ConfigurableBeanFactory的setParentBeanFactory(接口把设置跟获取给拆开了!).
- * <p>The corresponding {@code setParentBeanFactory} method for bean
- * factories that allow setting the parent in a configurable
- * fashion can be found in the ConfigurableBeanFactory interface.
+ * 可作为层次结构一部分的 BeanFactory 会实现的子接口，
+ * 提供对父级 BeanFactory 的访问能力。
+ * <p>对于允许以可配置方式设置父级的 BeanFactory，其对应的
+ * {@code setParentBeanFactory} 方法可以在
+ * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
+ * 接口中找到。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -35,19 +34,17 @@ import org.springframework.lang.Nullable;
 public interface HierarchicalBeanFactory extends BeanFactory {
 
 	/**
-	 * Return the parent bean factory, or {@code null} if there is none.
+	 * 返回父级 BeanFactory；如果不存在则返回 {@code null}。
 	 */
 	@Nullable
 	BeanFactory getParentBeanFactory();
 
 	/**
-	 * Return whether the local bean factory contains a bean of the given name,
-	 * ignoring beans defined in ancestor contexts.
-	 * 查询本地bean工厂是否存在指定bean忽略父工厂
-	 * <p>This is an alternative to {@code containsBean}, ignoring a bean
-	 * of the given name from an ancestor bean factory.
-	 * @param name the name of the bean to query
-	 * @return whether a bean with the given name is defined in the local factory
+	 * 返回本地 BeanFactory 是否包含给定名称的 Bean，忽略祖先上下文中定义的 Bean。
+	 * <p>这是 {@link BeanFactory#containsBean} 的一种变体，会忽略祖先 BeanFactory
+	 * 中具有同名的 Bean。
+	 * @param name 要查询的 Bean 名称
+	 * @return 是否在当前本地工厂中定义了具有给定名称的 Bean
 	 * @see BeanFactory#containsBean
 	 */
 	boolean containsLocalBean(String name);
