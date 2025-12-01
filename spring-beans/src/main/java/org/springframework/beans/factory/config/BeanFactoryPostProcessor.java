@@ -22,6 +22,7 @@ import org.springframework.beans.BeansException;
  * Factory hook that allows for custom modification of an application context's
  * bean definitions, adapting the bean property values of the context's underlying
  * bean factory.
+ * beanFactory钩子在BeanFactory初始化之后，Bean实例化之前修改bean定义
  *
  * <p>Useful for custom config files targeted at system administrators that
  * override bean properties configured in the application context. See
