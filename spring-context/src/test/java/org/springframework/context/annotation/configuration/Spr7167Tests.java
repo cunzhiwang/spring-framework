@@ -16,6 +16,7 @@
 
 package org.springframework.context.annotation.configuration;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.BeansException;
@@ -70,7 +71,7 @@ class MyPostProcessor implements BeanFactoryPostProcessor {
 	}
 
 	@Override
-	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+	public void postProcessBeanFactory(@NotNull ConfigurableListableBeanFactory beanFactory) throws BeansException {
 		AbstractBeanDefinition bd = (AbstractBeanDefinition) beanFactory.getBeanDefinition("someDependency");
 		bd.setDescription("post processed by MyPostProcessor");
 	}

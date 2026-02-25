@@ -5,7 +5,7 @@
 		xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.0.xsd
 				http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
-	<aop:config>
+	<aop:config proxy-target-class="true" expose-proxy="true">
 		<aop:aspect id="beforeAdviceBindingTests" ref="testAspect">
 			<aop:before method="oneIntArg" pointcut="execution(* setAge(int)) and args(age)"/>
 			<aop:before method="oneObjectArg" pointcut="execution(* getAge()) and this(bean)"/>
@@ -15,13 +15,13 @@
 			<aop:before method="needsJoinPointStaticPart" pointcut="execution(* getAge())"/>
 		</aop:aspect>
 
-		<!-- variation with external pointcut reference -->
-		<aop:aspect ref="authenticationLogger">
-			<aop:pointcut id="authenticationMethodWithString"
-					expression="execution(boolean *..SecurityManager.authenticate(..)) and args(username,java.lang.String)"/>
-			<aop:before pointcut-ref="authenticationMethodWithString"
-					method="logAuthenticationAttempt(java.lang.String)"/>
-		</aop:aspect>
+<!--		&lt;!&ndash; variation with external pointcut reference &ndash;&gt;-->
+<!--		<aop:aspect ref="authenticationLogger">-->
+<!--			<aop:pointcut id="authenticationMethodWithString"-->
+<!--					expression="execution(boolean *..SecurityManager.authenticate(..)) and args(username,java.lang.String)"/>-->
+<!--			<aop:before pointcut-ref="authenticationMethodWithString"-->
+<!--					method="logAuthenticationAttempt(java.lang.String)"/>-->
+<!--		</aop:aspect>-->
 	</aop:config>
 
 	<bean id="testAspect" class="org.springframework.aop.aspectj.AdviceBindingTestAspect"/>

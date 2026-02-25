@@ -637,8 +637,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Store pre-refresh ApplicationListeners...
 		if (this.earlyApplicationListeners == null) {
 			this.earlyApplicationListeners = new LinkedHashSet<>(this.applicationListeners);
-		}
-		else {
+		} else {
 			// Reset local application listeners to pre-refresh state.
 			this.applicationListeners.clear();
 			this.applicationListeners.addAll(this.earlyApplicationListeners);
